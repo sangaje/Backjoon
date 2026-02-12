@@ -6,7 +6,6 @@ M = int(sys.stdin.readline().rstrip())
 table = {}
 for i in range(1, N + 1):
     table[i] = set()
-    table[i].add(i)
 
 for _ in range(M):
     i, j = map(int, sys.stdin.readline().split())
@@ -14,10 +13,16 @@ for _ in range(M):
     table[i].add(j)
     table[j].add(i)
 
-for _ in range(N):
-    for k, v in table.items():
-        next_ks = v.copy()
-        for next_k in next_ks:
-            table[k] |= table[next_k]
+visited = [False] * (N + 1)
+def dfs(k):
+    visited[k] = True
+    cnt = 0
 
-print(len(table[1]) - 1)
+    for n_k in table[k]:
+        if not visited[n_k]:
+            cnt += dfs(n_k)
+
+    return cnt + 1
+
+
+print(dfs(1) - 1)
