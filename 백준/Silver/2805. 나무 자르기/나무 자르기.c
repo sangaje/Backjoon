@@ -3,16 +3,17 @@
 
 int main(void)
 {
-        int N, M;
-        long long int *woods;
-        scanf("%d %d", &N, &M);
+        int N;
+        int *woods;
+        long long int M;
+        scanf("%d %lld", &N, &M);
 
         int l = 1, r = 0;
-        woods = malloc(sizeof(long long int) * N);
+        woods = malloc(sizeof(int) * N);
 
         for (int i = 0; i < N; i++)
         {
-                scanf("%lld", &woods[i]);
+                scanf("%d", &woods[i]);
                 if (r < woods[i])
                         r = woods[i];
         }
@@ -23,7 +24,9 @@ int main(void)
                 long long int total = 0;
 
                 for (int i = 0; i < N; i++)
+                {
                         total += woods[i] - mid > 0 ? woods[i] - mid : 0;
+                }
 
                 if (total < M)
                         r = mid - 1;
